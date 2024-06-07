@@ -7,7 +7,7 @@
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
             var GrandPa1 = new FamilyMember("Иванов Иван Иванович", 67, Genders.Male);
-            var GrandPa2 = new FamilyMember("Петров Петр Петрович", 65, Genders.Male);;
+            var GrandPa2 = new FamilyMember("Петров Петр Петрович", 65, Genders.Male); ;
             var GrandMa1 = new FamilyMember("Иванова Ольга Федоровна", 65, Genders.Female);
             var GrandMa2 = new FamilyMember("Петрова Мария Владимировна", 64, Genders.Female);
             var Mom = new FamilyMember("Иванова Оксана Петровна", 43, Genders.Female) { Mother = GrandMa2, Father = GrandPa2 };
@@ -37,7 +37,30 @@
 
             FamilyMember.PrintNames("Имена детей матери: ", Mom.GetChildren());
 
-            FamilyMember.PrintNamesBeautifully("Древо: ", Son.GetAllTree());
+            PrintSeparationLine();
+
+            FamilyMember.PrintNamesBeautifully("Генеалогическое древо для сына: ", Son.GetAllTree());
+
+            PrintSeparationLine();
+
+            FamilyMember.PrintNamesBeautifully("Генеалогическое древо для дочери: ", Daughter.GetAllTree());
+
+            PrintSeparationLine();
+
+            FamilyMember.PrintNamesBeautifully("Генеалогическое древо для матери: ", Mom.GetAllTree());
+
+            PrintSeparationLine();
+
+            FamilyMember.PrintNamesBeautifully("Генеалогическое древо для отца: ", Dad.GetAllTree());
+
+            PrintSeparationLine();
+
+            Console.ReadKey(true);
+        }
+
+        static void PrintSeparationLine()
+        {
+            Console.WriteLine("\n" + new string('-', Console.WindowWidth - 2) + "\n");
         }
     }
 }

@@ -48,24 +48,24 @@
         public static void PrintNamesBeautifully(string enterText, FamilyMember?[] tree)
         {
             Console.WriteLine(enterText);
-            var beauty = new List<string>() { "" };
-            bool switcher = false;
+            var beautyPrint = new List<string>() { "" };
+            bool married = false;
             for (int i = 0, div = 1; i < tree.Length; i++)
             {
 
-                beauty[0] = beauty[0].Insert(0, "  [ " + (tree[i]?.FullName ?? "Родственник неизвестен")+ " ]  ");
-                if (switcher) { beauty[0] = beauty[0].Insert(0, "- - -"); }
-                switcher = !switcher;
-                if (i >= div - 1)
+                beautyPrint[0] = beautyPrint[0].Insert(0, "  [ " + (tree[i]?.FullName ?? "Родственник неизвестен")+ " ]  ");
+                if (married) { beautyPrint[0] = beautyPrint[0].Insert(0, "- - -"); }
+                married = !married;
+                if (i >= div - 1 && i != tree.Length - 1)
                 {
-                    beauty.Insert(0, ""); //here must be lines
-                    beauty.Insert(0, "");
+                    beautyPrint.Insert(0, "\\" + new string(' ', beautyPrint[0].Length / 2) + "/"); //here must be lines
+                    beautyPrint.Insert(0, "");
                     div = div * 2 + 1;
                 }
             }
-            for (int i = 0; i < beauty.Count; i++)
+            for (int i = 0; i < beautyPrint.Count; i++)
             {
-                Console.WriteLine(beauty[i].PadLeft((Console.WindowWidth + beauty[i].Length) / 2));
+                Console.WriteLine(beautyPrint[i].PadLeft((Console.WindowWidth + beautyPrint[i].Length) / 2));
             }
         }
 
