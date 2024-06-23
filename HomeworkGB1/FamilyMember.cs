@@ -7,33 +7,31 @@
         public Genders Gender { get; set; }
         public FamilyMember? Mother { get; set; }
         public FamilyMember? Father { get; set; }
+        public FamilyMember? Partner { get; set; }
         public List<FamilyMember>? Children { get; set; } = new();
         public FamilyMember()
         {
             FullName = "Неизвестный";
         }
-        public FamilyMember(string fullName, int age, Genders gender)
+        public FamilyMember(string fullName, int age, Genders gender, FamilyMember? mother = null, FamilyMember? father = null)
         {
             FullName = fullName;
             Age = age;
             Gender = gender;
+            Mother = mother;
+            Father = father;
+            mother?.Children!.Add(this);
+            father?.Children!.Add(this);
+            if (mother != null && father != null)
+            {
+                Mother!.Partner = father;
+                Father!.Partner = mother;
+            }
         }
-        public FamilyMember?[] GetGrandMothersNames()
-        {
-            return new FamilyMember?[] { Mother?.Mother, Father?.Mother };
-        }
-        public FamilyMember?[] GetGrandFathersNames()
-        {
-            return new FamilyMember?[] { Mother?.Father, Father?.Father };
-        }
-        public FamilyMember? GetHusbandOrWifeName()
-        {
-            return Gender == Genders.Male ? Children!.FirstOrDefault()?.Mother : Children!.FirstOrDefault()?.Father;
-        }
-        public FamilyMember?[] GetChildren()
-        {
-            return Children!.ToArray();
-        }
+        public FamilyMember?[] GetGrandMothersNames() => [Mother?.Mother, Father?.Mother];
+        public FamilyMember?[] GetGrandFathersNames() => [Mother?.Father, Father?.Father];
+        public FamilyMember? GetPartnerName() => Partner;
+        public FamilyMember?[] GetChildren() => Children!.ToArray();
         public FamilyMember?[] GetAllTree()
         {
             List<FamilyMember>? familyTree = new() { this };
@@ -44,7 +42,6 @@
             }
             return familyTree.ToArray();
         }
-
         public static void PrintNamesBeautifully(string enterText, FamilyMember?[] tree)
         {
             Console.WriteLine(enterText);
