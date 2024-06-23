@@ -20,8 +20,8 @@
             Gender = gender;
             Mother = mother;
             Father = father;
-            mother?.Children!.Add(this);
-            father?.Children!.Add(this);
+            Mother?.Children!.Add(this);
+            Father?.Children!.Add(this);
             if (mother != null && father != null)
             {
                 Mother!.Partner = father;
